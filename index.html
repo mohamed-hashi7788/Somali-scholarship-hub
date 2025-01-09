@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Somali Scholars' Hub</title>
+    <style>
+        body {
+            font-family: 'Arial, sans-serif';
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-image: url('https://bookaid.org/wp-content/uploads/2024/03/SMG-IFED-001-IFED-PRF-Beneficiary-Photos-2022-Website-shipping-image-and-preferred-insert-into-blog_story-for-gallery-2.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .moving-text {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #333;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 999;
+        }
+
+        .moving-text span {
+            display: inline-block;
+            padding-left: 100%;
+            animation: moveText 15s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes moveText {
+            from {
+                transform: translateX(0%);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        .hero {
+            background: rgba(106, 17, 203, 0.8);
+            color: #fff;
+            text-align: center;
+            padding: 100px 20px;
+            margin-top: 50px; /* Adjust for moving text */
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            margin: 10px 0 20px;
+        }
+
+        .btn {
+            background-color: #ff6347;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn:hover {
+            background-color: #ff4500;
+        }
+
+        .scholarship-section {
+            padding: 50px 20px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 900px;
+            text-align: center;
+        }
+
+        .scholarship-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .scholarship-list {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .scholarship-item {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            text-align: left;
+            margin-bottom: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .scholarship-item:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer {
+            background-color: rgba(51, 51, 51, 0.9);
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .action-section {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="moving-text">
+        <span>🎉 Welcome to Somali Scholars' Hub! 🚀 Your future starts here. 🌟 Fully funded opportunities await you! 🎓</span>
+    </div>
+
+    <header class="hero">
+        <h1>Somali Scholars' Hub</h1>
+        <p>Your Gateway to Fully Funded Undergraduate Scholarships</p>
+        <a href="#scholarships" class="btn">Explore Opportunities</a>
+    </header>
+
+    <section id="scholarships" class="scholarship-section">
+        <h2>Available Scholarships</h2>
+        <div class="action-section">
+            <label for="country-select">Choose a Country:</label>
+            <select id="country-select">
+                <option value="">Select a Country</option>
+                <option value="india">India</option>
+                <option value="usa">USA</option>
+                <option value="uk">UK</option>
+            </select>
+            <button class="btn" id="show-scholarships">See Information</button>
+        </div>
+        <div class="scholarship-list" id="scholarship-list">
+            <!-- Scholarships will appear here dynamically -->
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; Crafted with care by Mohamed Hashi.</p>
+        <p>&copy; 2025 Somali Scholars' Hub. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const scholarships = {
+            india: [
+                {
+                    title: "Ashoka University Scholarship",
+                    details: "Fully funded undergraduate scholarships at Ashoka University.",
+                    link: "https://www.ashoka.edu.in/admissions/"
+                }
+            ],
+            usa: [
+                {
+                    title: "Fulbright Undergraduate Scholarship",
+                    details: "Fully funded scholarships for undergraduate studies in the USA.",
+                    link: "https://foreign.fulbrightonline.org"
+                }
+            ],
+            uk: [
+                {
+                    title: "Chevening Undergraduate Scholarship",
+                    details: "Fully funded scholarships for undergraduate studies in the UK.",
+                    link: "https://www.chevening.org"
+                }
+            ]
+        };
+
+        const countrySelect = document.getElementById('country-select');
+        const showScholarshipsButton = document.getElementById('show-scholarships');
+        const scholarshipList = document.getElementById('scholarship-list');
+
+        showScholarshipsButton.addEventListener('click', () => {
+            const country = countrySelect.value;
+            scholarshipList.innerHTML = ''; // Clear previous results
+            if (country && scholarships[country]) {
+                scholarshipList.style.display = 'flex';
+                scholarships[country].forEach(scholarship => {
+                    const item = document.createElement('div');
+                    item.classList.add('scholarship-item');
+                    item.innerHTML = `
+                        <h3>${scholarship.title}</h3>
+                        <p>${scholarship.details}</p>
+                        <a href="${scholarship.link}" target="_blank" class="btn">Apply Now</a>
+                    `;
+                    scholarshipList.appendChild(item);
+                });
+            } else {
+                scholarshipList.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
